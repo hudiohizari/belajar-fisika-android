@@ -1,85 +1,107 @@
 package id.rumahawan.belajarfisika;
 
+import android.annotation.SuppressLint;
+import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener  {
+    private DrawerLayout mDrawerlayout;
+    private ActionBarDrawerToggle mToggle;
 
-import id.rumahawan.belajarfisika.Object.ThreeItems;
-import id.rumahawan.belajarfisika.RecyclerView.ThreeItemsAdapter;
-
-public class MainActivity extends AppCompatActivity {
-    private ArrayList<ThreeItems> arrayList;
-
-    class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
-
-        private ClickListener clicklistener;
-        private GestureDetector gestureDetector;
-
-        RecyclerTouchListener(Context context, final ClickListener clicklistener){
-
-            this.clicklistener = clicklistener;
-            gestureDetector = new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
-                @Override
-                public boolean onSingleTapUp(MotionEvent e) {
-                    return true;
-                }
-            });
+    private boolean loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.flContainer, fragment)
+                    .commit();
+            return true;
         }
-
-        @Override
-        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-            View child=rv.findChildViewUnder(e.getX(),e.getY());
-            if(child != null && clicklistener != null && gestureDetector.onTouchEvent(e)){
-                clicklistener.onClick(child,rv.getChildAdapterPosition(child));
-            }
-            return false;
-        }
-
-        @Override
-        public void onTouchEvent(RecyclerView rv, MotionEvent e) {}
-        @Override
-        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {}
+        return false;
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment fragment = null;
+        switch (item.getItemId()){
+            case R.id.student:
+                fragment = new StudentFragment();
+                getSupportActionBar().setTitle("Student");
+                break;
+            case R.id.lesson:
+                fragment = new LessonFragment();
+                getSupportActionBar().setTitle("Lesson");
+                break;
+        }
+        return loadFragment(fragment);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(mToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        if (item.getItemId() == R.id.add) {
+            Toast.makeText(this, "Add Button", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setTitle("Lesson");
+        getSupportActionBar().setTitle("Student");
 
-        addData();
-        RecyclerView recyclerView = findViewById(R.id.rcPelajaran);
-        ThreeItemsAdapter adapter = new ThreeItemsAdapter(arrayList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
-                new ClickListener() {
+        loadFragment(new StudentFragment());
+        BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(this);
+
+        mDrawerlayout = findViewById(R.id.drawerContainer);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerlayout, R.string.open, R.string.close);
+        mDrawerlayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        NavigationView navigationView = findViewById(R.id.navigationView);
+        navigationView.inflateHeaderView(R.layout.drawer_header);
+
+        View headerLayout = navigationView.getHeaderView(0);
+        TextView tvHeaderName = headerLayout.findViewById(R.id.tvHeaderName);
+        tvHeaderName.setText("User Name");
+        TextView tvHeaderEmail = headerLayout.findViewById(R.id.tvHeaderEmail);
+        tvHeaderEmail.setText("user@gmail.com");
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View view, final int position) {
-                TextView clickedTitle = view.findViewById(R.id.tvTitle);
-                Toast.makeText(MainActivity.this, "Clicked " + clickedTitle.getText(), Toast.LENGTH_SHORT).show();
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                //Loged Off
+                if (item.getItemId() == R.id.logout) {
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    mDrawerlayout.closeDrawers();
+                }
+                return false;
             }
-        }));
-    }
-
-    void addData(){
-        arrayList = new ArrayList<>();
-        arrayList.add(new ThreeItems("Mirror - Chapter 2", "Physic", "level 3"));
-        arrayList.add(new ThreeItems("Electricity - Chapter 1", "Physic", "level 3"));
-        arrayList.add(new ThreeItems("Vibration - Chapter 5", "Physic", "level 5"));
-    }
-
-    public interface ClickListener{
-        void onClick(View view, int position);
+        });
     }
 }

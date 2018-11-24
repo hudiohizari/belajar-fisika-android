@@ -7,4 +7,5 @@
     <color name="colorAccent">#80d6ff</color>
     <color name="colorLightGrey">#bdbdbd</color>
     <color name="colorWhite">#fff</color>
+    <color name="colorBackground">#f4f8fb</color>
 </resources>

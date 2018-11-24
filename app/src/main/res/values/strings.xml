@@ -17,4 +17,10 @@
     <string name="sign_up_to_continue_to_the_app">Sign up to continue to the app</string>
     <string name="main_image">Main image</string>
     <string name="daftar_pelajaran">Daftar Pelajaran</string>
+    <string name="student">Student</string>
+    <string name="lesson">Lesson</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="logout">Logout</string>
+    <string name="daftar_pelajar">Daftar Pelajar</string>
 </resources>
