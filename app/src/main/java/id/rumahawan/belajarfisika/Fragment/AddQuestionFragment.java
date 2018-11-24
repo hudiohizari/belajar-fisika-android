@@ -1,4 +1,4 @@
-package id.rumahawan.belajarfisika;
+package id.rumahawan.belajarfisika.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import id.rumahawan.belajarfisika.R;
 
 public class AddQuestionFragment extends Fragment {
 

@@ -10,11 +10,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import id.rumahawan.belajarfisika.Fragment.LessonListFragment;
+import id.rumahawan.belajarfisika.Fragment.StudentListFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener  {
     private DrawerLayout mDrawerlayout;
@@ -35,11 +36,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Fragment fragment = null;
         switch (item.getItemId()){
             case R.id.student:
-                fragment = new StudentFragment();
+                fragment = new StudentListFragment();
                 getSupportActionBar().setTitle("Student");
                 break;
             case R.id.lesson:
-                fragment = new LessonFragment();
+                fragment = new LessonListFragment();
                 getSupportActionBar().setTitle("Lesson");
                 break;
         }
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("Student");
 
-        loadFragment(new StudentFragment());
+        loadFragment(new StudentListFragment());
         BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigation);
         bottomNavigation.setOnNavigationItemSelectedListener(this);
 

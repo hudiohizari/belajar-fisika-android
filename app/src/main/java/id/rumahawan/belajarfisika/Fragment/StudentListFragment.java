@@ -1,7 +1,8 @@
-package id.rumahawan.belajarfisika;
+package id.rumahawan.belajarfisika.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,17 +20,19 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import id.rumahawan.belajarfisika.Object.ThreeItems;
-import id.rumahawan.belajarfisika.RecyclerView.ThreeItemsAdapter;
+import id.rumahawan.belajarfisika.R;
+import id.rumahawan.belajarfisika.RecyclerViewAdapter.ThreeItemsListStyle1Adapter;
+import id.rumahawan.belajarfisika.StudentProfileActivity;
 
-public class StudentFragment extends Fragment {
+public class StudentListFragment extends Fragment {
     private ArrayList<ThreeItems> arrayList;
 
     class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
 
-        private StudentFragment.ClickListener clicklistener;
+        private StudentListFragment.ClickListener clicklistener;
         private GestureDetector gestureDetector;
 
-        RecyclerTouchListener(Context context, final StudentFragment.ClickListener clicklistener){
+        RecyclerTouchListener(Context context, final StudentListFragment.ClickListener clicklistener){
 
             this.clicklistener = clicklistener;
             gestureDetector = new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
@@ -59,7 +62,7 @@ public class StudentFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_three_items, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_three_items_list, container, false);
         final Context context = getActivity();
 
         TextView tvTitleFragment = rootView.findViewById(R.id.tvTitleFragment);
@@ -68,17 +71,18 @@ public class StudentFragment extends Fragment {
         tvSubtitleFragment.setText("Jumlah siswa terdaftar : 180");
 
         addData();
-        RecyclerView recyclerView = rootView.findViewById(R.id.rcPelajaran);
-        ThreeItemsAdapter adapter = new ThreeItemsAdapter(arrayList);
+        RecyclerView recyclerView = rootView.findViewById(R.id.rcContainer);
+        ThreeItemsListStyle1Adapter adapter = new ThreeItemsListStyle1Adapter(arrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(context,
-                new StudentFragment.ClickListener() {
+                new StudentListFragment.ClickListener() {
                     @Override
                     public void onClick(View view, final int position) {
                         TextView clickedTitle = view.findViewById(R.id.tvTitle);
                         Toast.makeText(context, "Clicked " + clickedTitle.getText(), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getContext(), StudentProfileActivity.class));
                     }
                 }));
 

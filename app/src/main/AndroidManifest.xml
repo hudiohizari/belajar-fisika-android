@@ -26,6 +26,10 @@
             android:name=".AddLessonActivity"
             android:parentActivityName=".MainActivity"
             tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".StudentProfileActivity"
+            android:parentActivityName=".MainActivity"
+            tools:targetApi="jelly_bean" />
     </application>
 
 </manifest>

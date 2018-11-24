@@ -1,4 +1,4 @@
-package id.rumahawan.belajarfisika.RecyclerView;
+package id.rumahawan.belajarfisika.RecyclerViewAdapter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,17 +12,10 @@ import java.util.ArrayList;
 import id.rumahawan.belajarfisika.Object.ThreeItems;
 import id.rumahawan.belajarfisika.R;
 
-/**
- * Created by Dimas Maulana on 5/26/17.
- * Email : araymaulana66@gmail.com
- */
-
-public class ThreeItemsAdapter extends RecyclerView.Adapter<ThreeItemsAdapter.ThreeItemsViewHolder> {
-
-
+public class ThreeItemsListStyle1Adapter extends RecyclerView.Adapter<ThreeItemsListStyle1Adapter.ThreeItemsViewHolder> {
     private ArrayList<ThreeItems> dataList;
 
-    public ThreeItemsAdapter(ArrayList<ThreeItems> dataList) {
+    public ThreeItemsListStyle1Adapter(ArrayList<ThreeItems> dataList) {
         this.dataList = dataList;
     }
 
@@ -30,7 +23,7 @@ public class ThreeItemsAdapter extends RecyclerView.Adapter<ThreeItemsAdapter.Th
     @Override
     public ThreeItemsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.list_three_items, parent, false);
+        View view = layoutInflater.inflate(R.layout.list_three_items_style1, parent, false);
         return new ThreeItemsViewHolder(view);
     }
 

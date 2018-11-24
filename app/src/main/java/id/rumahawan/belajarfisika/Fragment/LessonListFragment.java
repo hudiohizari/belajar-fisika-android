@@ -1,4 +1,4 @@
-package id.rumahawan.belajarfisika;
+package id.rumahawan.belajarfisika.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -22,18 +22,20 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import id.rumahawan.belajarfisika.AddLessonActivity;
 import id.rumahawan.belajarfisika.Object.ThreeItems;
-import id.rumahawan.belajarfisika.RecyclerView.ThreeItemsAdapter;
+import id.rumahawan.belajarfisika.R;
+import id.rumahawan.belajarfisika.RecyclerViewAdapter.ThreeItemsListStyle1Adapter;
 
-public class LessonFragment extends Fragment {
+public class LessonListFragment extends Fragment {
     private ArrayList<ThreeItems> arrayList;
 
     class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
 
-        private LessonFragment.ClickListener clicklistener;
+        private LessonListFragment.ClickListener clicklistener;
         private GestureDetector gestureDetector;
 
-        RecyclerTouchListener(Context context, final LessonFragment.ClickListener clicklistener){
+        RecyclerTouchListener(Context context, final LessonListFragment.ClickListener clicklistener){
 
             this.clicklistener = clicklistener;
             gestureDetector = new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
@@ -82,7 +84,7 @@ public class LessonFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_three_items, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_three_items_list, container, false);
         final Context context = getActivity();
 
         TextView tvTitleFragment = rootView.findViewById(R.id.tvTitleFragment);
@@ -91,13 +93,13 @@ public class LessonFragment extends Fragment {
         tvSubtitleFragment.setText("Jumlah pelajaran : 30");
 
         addData();
-        RecyclerView recyclerView = rootView.findViewById(R.id.rcPelajaran);
-        ThreeItemsAdapter adapter = new ThreeItemsAdapter(arrayList);
+        RecyclerView recyclerView = rootView.findViewById(R.id.rcContainer);
+        ThreeItemsListStyle1Adapter adapter = new ThreeItemsListStyle1Adapter(arrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(context,
-                new LessonFragment.ClickListener() {
+                new LessonListFragment.ClickListener() {
                     @Override
                     public void onClick(View view, final int position) {
                         TextView clickedTitle = view.findViewById(R.id.tvTitle);
