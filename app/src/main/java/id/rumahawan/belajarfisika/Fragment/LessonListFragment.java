@@ -23,6 +23,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import id.rumahawan.belajarfisika.AddLessonActivity;
+import id.rumahawan.belajarfisika.LessonDetailActivity;
 import id.rumahawan.belajarfisika.Object.ThreeItems;
 import id.rumahawan.belajarfisika.R;
 import id.rumahawan.belajarfisika.RecyclerViewAdapter.ThreeItemsListStyle1Adapter;
@@ -102,8 +103,7 @@ public class LessonListFragment extends Fragment {
                 new LessonListFragment.ClickListener() {
                     @Override
                     public void onClick(View view, final int position) {
-                        TextView clickedTitle = view.findViewById(R.id.tvTitle);
-                        Toast.makeText(context, "Clicked " + clickedTitle.getText(), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getContext(), LessonDetailActivity.class));
                     }
                 }));
 

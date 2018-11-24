@@ -1,8 +1,6 @@
 package id.rumahawan.belajarfisika.Fragment;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,7 +25,7 @@ public class AddQuestionFragment extends Fragment {
         TextView tvUrutSoal = rootView.findViewById(R.id.tvUrutSoal);
         tvUrutSoal.setText(getResources().getString(R.string.question) + " " + 1);
 
-        View vUploadGambarSoal = rootView.findViewById(R.id.vUploadGambarSoal);
+        View vUploadGambarSoal = rootView.findViewById(R.id.ivGambarSoal);
         vUploadGambarSoal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,7 +33,7 @@ public class AddQuestionFragment extends Fragment {
             }
         });
 
-        Button btnUploadSoal = rootView.findViewById(R.id.btnUploadSoal);
+        Button btnUploadSoal = rootView.findViewById(R.id.btnDone);
         btnUploadSoal.setText(getResources().getString(R.string.upload_question) + " " + 1);
         btnUploadSoal.setOnClickListener(new View.OnClickListener() {
             @Override

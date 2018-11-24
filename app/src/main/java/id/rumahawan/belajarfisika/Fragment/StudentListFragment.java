@@ -80,8 +80,6 @@ public class StudentListFragment extends Fragment {
                 new StudentListFragment.ClickListener() {
                     @Override
                     public void onClick(View view, final int position) {
-                        TextView clickedTitle = view.findViewById(R.id.tvTitle);
-                        Toast.makeText(context, "Clicked " + clickedTitle.getText(), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getContext(), StudentProfileActivity.class));
                     }
                 }));

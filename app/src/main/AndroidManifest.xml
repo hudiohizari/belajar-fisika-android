@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="id.rumahawan.belajarfisika">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
@@ -12,24 +14,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"/>
         <activity android:name=".OnBoardingActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SignUpActivity" />
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".SignUpActivity"/>
         <activity
             android:name=".AddLessonActivity"
             android:parentActivityName=".MainActivity"
-            tools:targetApi="jelly_bean" />
+            tools:targetApi="jelly_bean"/>
         <activity
             android:name=".StudentProfileActivity"
             android:parentActivityName=".MainActivity"
-            tools:targetApi="jelly_bean" />
+            tools:targetApi="jelly_bean"/>
+        <activity
+            android:name=".LessonDetailActivity"
+            android:parentActivityName=".MainActivity"
+            tools:targetApi="jelly_bean"/>
     </application>
 
 </manifest>

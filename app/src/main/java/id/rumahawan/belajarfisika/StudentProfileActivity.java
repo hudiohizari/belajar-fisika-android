@@ -55,8 +55,9 @@ public class StudentProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_profile);
-        getSupportActionBar().setTitle("Student Profile");addData();
+        getSupportActionBar().setTitle("Student Profile");
 
+        addData();
         RecyclerView recyclerView = findViewById(R.id.rcContainer);
         ThreeItemsListStyle2Adapter adapter = new ThreeItemsListStyle2Adapter(arrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);

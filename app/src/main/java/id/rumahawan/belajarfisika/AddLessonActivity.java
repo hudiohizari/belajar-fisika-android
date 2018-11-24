@@ -10,10 +10,15 @@ import id.rumahawan.belajarfisika.Fragment.AddQuestionFragment;
 
 public class AddLessonActivity extends AppCompatActivity {
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_lesson_menu, menu);
+        Boolean edit = false;
+        if (!edit){
+            getMenuInflater().inflate(R.menu.add_lesson_menu, menu);
+        }
+        else {
+            getMenuInflater().inflate(R.menu.edit_lesson_menu, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -21,6 +26,12 @@ public class AddLessonActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.save) {
             Toast.makeText(this, "Save Button", Toast.LENGTH_SHORT).show();
+        }
+        else if (item.getItemId() == R.id.edit) {
+            Toast.makeText(this, "Edit ditekan", Toast.LENGTH_SHORT).show();
+        }
+        else if (item.getItemId() == R.id.delete) {
+            Toast.makeText(this, "Delete ditekan", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
