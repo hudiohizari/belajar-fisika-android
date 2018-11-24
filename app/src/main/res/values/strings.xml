@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">Belajar Fisika</string>
-    <string name="dont_have_an_account_signup">Dont have an account? <b>Sign up</b></string>
+    <string name="dont_have_an_account_sign_up">Dont have an account? <b>Sign up</b></string>
     <string name="im_a_teacher">Im a teacher</string>
     <string name="continue_as_student">Continue as student</string>
     <string name="it_s_easier_to_sign_in_now">It\'s easier to sign in now</string>
     <string name="sign_in">Sign In</string>
+    <string name="welcome_back">Welcome back!</string>
+    <string name="we_have_been_waiting_for_you">We have been waiting for you</string>
+    <string name="login">Login</string>
+    <string name="back_to_parent">Back to parent</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
 </resources>
