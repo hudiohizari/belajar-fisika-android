@@ -40,7 +40,7 @@ public class OnBoardingActivity extends AppCompatActivity {
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(OnBoardingActivity.this, SignUpActivity.class));
             }
         });
     }

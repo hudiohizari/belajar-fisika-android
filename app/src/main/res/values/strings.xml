@@ -11,4 +11,8 @@
     <string name="back_to_parent">Back to parent</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
+    <string name="full_name">Full Name</string>
+    <string name="sign_up">Sign up</string>
+    <string name="create_account">Create account!</string>
+    <string name="sign_up_to_continue_to_the_app">Sign up to continue to the app</string>
 </resources>
