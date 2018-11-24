@@ -2,6 +2,7 @@ package id.rumahawan.belajarfisika;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +59,25 @@ public class LessonFragment extends Fragment {
         public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {}
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.add) {
+            startActivity(new Intent(getContext(), AddLessonActivity.class));
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main_activity_menu, menu);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @SuppressLint("SetTextI18n")
     @Nullable
     @Override
@@ -87,14 +110,14 @@ public class LessonFragment extends Fragment {
 
     void addData(){
         arrayList = new ArrayList<>();
-        arrayList.add(new ThreeItems("Mirror - Chapter 2", "Physic", "level 3"));
-        arrayList.add(new ThreeItems("Electricity - Chapter 1", "Physic", "level 3"));
-        arrayList.add(new ThreeItems("Vibration - Chapter 5", "Physic", "level 5"));
-        arrayList.add(new ThreeItems("Electricity - Chapter 2", "Physic", "level 3"));
-        arrayList.add(new ThreeItems("Mirror - Chapter 1", "Physic", "level 2"));
-        arrayList.add(new ThreeItems("Vibration - Chapter 8", "Physic", "level 6"));
-        arrayList.add(new ThreeItems("Electricity - Chapter 3", "Physic", "level 5"));
-        arrayList.add(new ThreeItems("Electricity - Chapter 4", "Physic", "level 5"));
+        arrayList.add(new ThreeItems("Mirror - Chapter 2", "Physic", "Level 3"));
+        arrayList.add(new ThreeItems("Electricity - Chapter 1", "Physic", "Level 3"));
+        arrayList.add(new ThreeItems("Vibration - Chapter 5", "Physic", "Level 5"));
+        arrayList.add(new ThreeItems("Electricity - Chapter 2", "Physic", "Level 3"));
+        arrayList.add(new ThreeItems("Mirror - Chapter 1", "Physic", "Level 2"));
+        arrayList.add(new ThreeItems("Vibration - Chapter 8", "Physic", "Level 6"));
+        arrayList.add(new ThreeItems("Electricity - Chapter 3", "Physic", "Level 5"));
+        arrayList.add(new ThreeItems("Electricity - Chapter 4", "Physic", "Level 5"));
     }
 
     public interface ClickListener{

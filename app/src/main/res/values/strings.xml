@@ -23,4 +23,15 @@
     <string name="close">Close</string>
     <string name="logout">Logout</string>
     <string name="daftar_pelajar">Daftar Pelajar</string>
+    <string name="lesson_name">Lesson Name</string>
+    <string name="subject">Subject</string>
+    <string name="level">Level</string>
+    <string name="video_link">Video link</string>
+    <string name="question">Question</string>
+    <string name="choose_your_image_that_contains_the_question">Choose your image that contains the question</string>
+    <string name="upload_question">Upload Question</string>
+    <string name="option_a">Option A</string>
+    <string name="option_b">Option B</string>
+    <string name="option_c">Option C</string>
+    <string name="option_d">Option D</string>
 </resources>
