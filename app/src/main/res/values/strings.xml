@@ -15,4 +15,6 @@
     <string name="sign_up">Sign up</string>
     <string name="create_account">Create account!</string>
     <string name="sign_up_to_continue_to_the_app">Sign up to continue to the app</string>
+    <string name="main_image">Main image</string>
+    <string name="daftar_pelajaran">Daftar Pelajaran</string>
 </resources>
