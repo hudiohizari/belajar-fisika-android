@@ -4,15 +4,19 @@ public class User {
     private String email;
     private String name;
     private String password;
+    private String clasc;
+    private String registrationNumber;
     private String level;
 
     public User() {
     }
 
-    public User(String email, String name, String password, String level) {
+    public User(String email, String name, String password, String clasc, String registrationNumber, String level) {
         this.email = email;
         this.name = name;
         this.password = password;
+        this.clasc = clasc;
+        this.registrationNumber = registrationNumber;
         this.level = level;
     }
 
@@ -38,6 +42,22 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getClasc() {
+        return clasc;
+    }
+
+    public void setClasc(String clasc) {
+        this.clasc = clasc;
+    }
+
+    public String getRegistrationNumber() {
+        return registrationNumber;
+    }
+
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
     }
 
     public String getLevel() {

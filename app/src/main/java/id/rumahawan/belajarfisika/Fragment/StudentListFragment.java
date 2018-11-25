@@ -14,18 +14,33 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import id.rumahawan.belajarfisika.Data.Session;
+import id.rumahawan.belajarfisika.Object.Lesson;
 import id.rumahawan.belajarfisika.Object.ThreeItems;
+import id.rumahawan.belajarfisika.Object.User;
 import id.rumahawan.belajarfisika.R;
 import id.rumahawan.belajarfisika.RecyclerViewAdapter.ThreeItemsListStyle1Adapter;
 import id.rumahawan.belajarfisika.StudentProfileActivity;
 
 public class StudentListFragment extends Fragment {
+    private ProgressBar progressBar;
+
+    private Session session;
+    private Query query;
     private ArrayList<ThreeItems> arrayList;
+    private ThreeItemsListStyle1Adapter adapter;
 
     class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
 
@@ -65,22 +80,32 @@ public class StudentListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_three_items_list, container, false);
         final Context context = getActivity();
 
+        session = new Session(getContext());
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://belajar-fisika.firebaseio.com/User");
+        query = databaseReference.orderByChild("level").equalTo("student");
+        query.keepSynced(true);
+
+        progressBar = rootView.findViewById(R.id.progressBar);
         TextView tvTitleFragment = rootView.findViewById(R.id.tvTitleFragment);
         tvTitleFragment.setText("Student List");
-        TextView tvSubtitleFragment = rootView.findViewById(R.id.tvSubtitleFragment);
-        tvSubtitleFragment.setText("Registered student : 180");
+        TextView tvListName = rootView.findViewById(R.id.tvListName);
+        tvListName.setText("Daftar Pelajar");
 
         addData();
         RecyclerView recyclerView = rootView.findViewById(R.id.rcContainer);
-        ThreeItemsListStyle1Adapter adapter = new ThreeItemsListStyle1Adapter(arrayList);
+        adapter = new ThreeItemsListStyle1Adapter(arrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(context,
+        recyclerView.addOnItemTouchListener(new StudentListFragment.RecyclerTouchListener(context,
                 new StudentListFragment.ClickListener() {
                     @Override
                     public void onClick(View view, final int position) {
-                        startActivity(new Intent(getContext(), StudentProfileActivity.class));
+                        TextView tvId = view.findViewById(R.id.tvId);
+                        startActivity(
+                                new Intent(getContext(), StudentProfileActivity.class)
+                                        .putExtra("id", tvId.getText().toString())
+                        );
                     }
                 }));
 
@@ -89,14 +114,28 @@ public class StudentListFragment extends Fragment {
 
     void addData(){
         arrayList = new ArrayList<>();
-        arrayList.add(new ThreeItems("", "Alghozi Simuntilong", "6706160114", "S1 Teknik Perhotelan"));
-        arrayList.add(new ThreeItems("", "Alghozi Simantupong", "6706160423", "S1 Teknik Perhotelan"));
-        arrayList.add(new ThreeItems("", "Alghozi Simuntipong", "6706160116", "S1 Teknik Perhotelan"));
-        arrayList.add(new ThreeItems("", "Alghozi Simantilong", "6706162314", "S1 Teknik Perhotelan"));
-        arrayList.add(new ThreeItems("", "Alghozi Simontilong", "6706162314", "S1 Teknik Perhotelan"));
-        arrayList.add(new ThreeItems("", "Alghozi Simontiling", "6706162314", "S1 Teknik Perhotelan"));
-        arrayList.add(new ThreeItems("", "Alghozi Simintoling", "6706162314", "S1 Teknik Perhotelan"));
-        arrayList.add(new ThreeItems("", "Alghozi Simantupang", "6706164141", "S1 Teknik Perhotelan"));
+
+        query.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                progressBar.setVisibility(View.GONE);
+                TextView tvSubtitleFragment = getView().findViewById(R.id.tvSubtitleFragment);
+                tvSubtitleFragment.setText("Registered student : " + dataSnapshot.getChildrenCount());
+
+                arrayList.clear();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    User newUser = postSnapshot.getValue(User.class);
+                    arrayList.add(new ThreeItems(newUser.getEmail(), newUser.getName(), newUser.getClasc(), newUser.getRegistrationNumber()));
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public interface ClickListener{

@@ -98,7 +98,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     session.removeSession("currentName");
                     session.removeSession("currentLevel");
                     mDrawerlayout.closeDrawers();
-                    startActivity(new Intent(MainActivity.this, OnBoardingActivity.class));
+                    Intent intent = new Intent(MainActivity.this, OnBoardingActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    MainActivity.this.finish();
                 }
                 return false;
             }

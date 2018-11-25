@@ -127,10 +127,10 @@ public class LessonListFragment extends Fragment {
                 new LessonListFragment.ClickListener() {
                     @Override
                     public void onClick(View view, final int position) {
-                        TextView tvKey = view.findViewById(R.id.tvId);
+                        TextView tvId = view.findViewById(R.id.tvId);
                         startActivity(
                                 new Intent(getContext(), LessonDetailActivity.class)
-                                .putExtra("id", tvKey.getText().toString())
+                                .putExtra("id", tvId.getText().toString())
                         );
                     }
                 }));
