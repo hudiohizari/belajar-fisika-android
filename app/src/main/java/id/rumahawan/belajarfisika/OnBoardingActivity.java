@@ -9,7 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import id.rumahawan.belajarfisika.Data.Session;
+
 public class OnBoardingActivity extends AppCompatActivity {
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +21,15 @@ public class OnBoardingActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorSligthTranslucent));
+        }
+
+        session = new Session(this);
+
+        if (session.isExist("currentEmail")){
+            Intent intent = new Intent(OnBoardingActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            OnBoardingActivity.this.finish();
         }
 
         Button btnStudent = findViewById(R.id.btnStudent);

@@ -81,7 +81,7 @@ public class AddLessonActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
 
-        tilLessonName = findViewById(R.id.tilLessonName);
+        tilLessonName = findViewById(R.id.tilEmail);
         tilSubject = findViewById(R.id.tilSubject);
         tilLevel = findViewById(R.id.tilLevel);
         tilLinkVideo = findViewById(R.id.tilLinkVideo);
