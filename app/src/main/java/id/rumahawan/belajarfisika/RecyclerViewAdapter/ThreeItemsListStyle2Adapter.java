@@ -28,6 +28,7 @@ public class ThreeItemsListStyle2Adapter extends RecyclerView.Adapter<ThreeItems
 
     @Override
     public void onBindViewHolder(@NonNull ThreeItemsViewHolder holder, int position) {
+        holder.tvId.setText(dataList.get(position).getId());
         holder.tvTitle.setText(dataList.get(position).getTitle());
         holder.tvSubtitle.setText(dataList.get(position).getSubtile());
         holder.tvSubSubtitle.setText(dataList.get(position).getSubsubtitle());
@@ -39,11 +40,12 @@ public class ThreeItemsListStyle2Adapter extends RecyclerView.Adapter<ThreeItems
     }
 
     class ThreeItemsViewHolder extends RecyclerView.ViewHolder{
-        private TextView tvTitle, tvSubtitle, tvSubSubtitle;
+        private TextView tvId, tvTitle, tvSubtitle, tvSubSubtitle;
 
         ThreeItemsViewHolder(View itemView) {
             super(itemView);
 
+            tvId = itemView.findViewById(R.id.tvId);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvSubtitle = itemView.findViewById(R.id.tvSubtitle);
             tvSubSubtitle = itemView.findViewById(R.id.tvSubSubtitle);

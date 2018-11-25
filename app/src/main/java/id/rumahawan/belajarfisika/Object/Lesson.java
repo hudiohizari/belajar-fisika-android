@@ -6,7 +6,6 @@ public class Lesson {
     private String subject;
     private String level;
     private String youtubeLink;
-    private String key;
 
     public Lesson() {}
 
@@ -56,13 +55,5 @@ public class Lesson {
 
     public void setYoutubeLink(String youtubeLink) {
         this.youtubeLink = youtubeLink;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
     }
 }

@@ -30,6 +30,7 @@ public class ThreeItemsListStyle1Adapter extends RecyclerView.Adapter<ThreeItems
     @Override
     public void onBindViewHolder(@NonNull ThreeItemsViewHolder holder, int position) {
         holder.ivMain.setImageResource(R.drawable.ic_launcher_foreground);
+        holder.tvId.setText(dataList.get(position).getId());
         holder.tvTitle.setText(dataList.get(position).getTitle());
         holder.tvSubtitle.setText(dataList.get(position).getSubtile());
         holder.tvSubSubtitle.setText(dataList.get(position).getSubsubtitle());
@@ -42,12 +43,13 @@ public class ThreeItemsListStyle1Adapter extends RecyclerView.Adapter<ThreeItems
 
     class ThreeItemsViewHolder extends RecyclerView.ViewHolder{
         private ImageView ivMain;
-        private TextView tvTitle, tvSubtitle, tvSubSubtitle;
+        private TextView tvId, tvTitle, tvSubtitle, tvSubSubtitle;
 
         ThreeItemsViewHolder(View itemView) {
             super(itemView);
 
             ivMain = itemView.findViewById(R.id.ivMain);
+            tvId = itemView.findViewById(R.id.tvId);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvSubtitle = itemView.findViewById(R.id.tvSubtitle);
             tvSubSubtitle = itemView.findViewById(R.id.tvSubSubtitle);

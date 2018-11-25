@@ -89,14 +89,14 @@ public class StudentListFragment extends Fragment {
 
     void addData(){
         arrayList = new ArrayList<>();
-        arrayList.add(new ThreeItems("Alghozi Simuntilong", "6706160114", "S1 Teknik Perhotelan"));
-        arrayList.add(new ThreeItems("Alghozi Simantupong", "6706160423", "S1 Teknik Perhotelan"));
-        arrayList.add(new ThreeItems("Alghozi Simuntipong", "6706160116", "S1 Teknik Perhotelan"));
-        arrayList.add(new ThreeItems("Alghozi Simantilong", "6706162314", "S1 Teknik Perhotelan"));
-        arrayList.add(new ThreeItems("Alghozi Simontilong", "6706162314", "S1 Teknik Perhotelan"));
-        arrayList.add(new ThreeItems("Alghozi Simontiling", "6706162314", "S1 Teknik Perhotelan"));
-        arrayList.add(new ThreeItems("Alghozi Simintoling", "6706162314", "S1 Teknik Perhotelan"));
-        arrayList.add(new ThreeItems("Alghozi Simantupang", "6706164141", "S1 Teknik Perhotelan"));
+        arrayList.add(new ThreeItems("", "Alghozi Simuntilong", "6706160114", "S1 Teknik Perhotelan"));
+        arrayList.add(new ThreeItems("", "Alghozi Simantupong", "6706160423", "S1 Teknik Perhotelan"));
+        arrayList.add(new ThreeItems("", "Alghozi Simuntipong", "6706160116", "S1 Teknik Perhotelan"));
+        arrayList.add(new ThreeItems("", "Alghozi Simantilong", "6706162314", "S1 Teknik Perhotelan"));
+        arrayList.add(new ThreeItems("", "Alghozi Simontilong", "6706162314", "S1 Teknik Perhotelan"));
+        arrayList.add(new ThreeItems("", "Alghozi Simontiling", "6706162314", "S1 Teknik Perhotelan"));
+        arrayList.add(new ThreeItems("", "Alghozi Simintoling", "6706162314", "S1 Teknik Perhotelan"));
+        arrayList.add(new ThreeItems("", "Alghozi Simantupang", "6706164141", "S1 Teknik Perhotelan"));
     }
 
     public interface ClickListener{

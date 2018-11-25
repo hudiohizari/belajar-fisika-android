@@ -17,19 +17,33 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import id.rumahawan.belajarfisika.AddLessonActivity;
+import id.rumahawan.belajarfisika.Data.Session;
 import id.rumahawan.belajarfisika.LessonDetailActivity;
+import id.rumahawan.belajarfisika.Object.Lesson;
 import id.rumahawan.belajarfisika.Object.ThreeItems;
 import id.rumahawan.belajarfisika.R;
 import id.rumahawan.belajarfisika.RecyclerViewAdapter.ThreeItemsListStyle1Adapter;
 
 public class LessonListFragment extends Fragment {
+
+    private Query query;
+    private Session session;
     private ArrayList<ThreeItems> arrayList;
+    private ThreeItemsListStyle1Adapter adapter;
 
     class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
 
@@ -88,14 +102,17 @@ public class LessonListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_three_items_list, container, false);
         final Context context = getActivity();
 
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://belajar-fisika.firebaseio.com/Lesson");
+        query = databaseReference.orderByKey();
+        query.keepSynced(true);
+        session = new Session(getContext());
+
         TextView tvTitleFragment = rootView.findViewById(R.id.tvTitleFragment);
         tvTitleFragment.setText("Lesson List");
-        TextView tvSubtitleFragment = rootView.findViewById(R.id.tvSubtitleFragment);
-        tvSubtitleFragment.setText("Jumlah pelajaran : 30");
 
         addData();
         RecyclerView recyclerView = rootView.findViewById(R.id.rcContainer);
-        ThreeItemsListStyle1Adapter adapter = new ThreeItemsListStyle1Adapter(arrayList);
+        adapter = new ThreeItemsListStyle1Adapter(arrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -103,7 +120,11 @@ public class LessonListFragment extends Fragment {
                 new LessonListFragment.ClickListener() {
                     @Override
                     public void onClick(View view, final int position) {
-                        startActivity(new Intent(getContext(), LessonDetailActivity.class));
+                        TextView tvKey = view.findViewById(R.id.tvId);
+                        startActivity(
+                                new Intent(getContext(), LessonDetailActivity.class)
+                                .putExtra("key", tvKey.getText().toString())
+                        );
                     }
                 }));
 
@@ -112,14 +133,29 @@ public class LessonListFragment extends Fragment {
 
     void addData(){
         arrayList = new ArrayList<>();
-        arrayList.add(new ThreeItems("Mirror - Chapter 2", "Physic", "Level 3"));
-        arrayList.add(new ThreeItems("Electricity - Chapter 1", "Physic", "Level 3"));
-        arrayList.add(new ThreeItems("Vibration - Chapter 5", "Physic", "Level 5"));
-        arrayList.add(new ThreeItems("Electricity - Chapter 2", "Physic", "Level 3"));
-        arrayList.add(new ThreeItems("Mirror - Chapter 1", "Physic", "Level 2"));
-        arrayList.add(new ThreeItems("Vibration - Chapter 8", "Physic", "Level 6"));
-        arrayList.add(new ThreeItems("Electricity - Chapter 3", "Physic", "Level 5"));
-        arrayList.add(new ThreeItems("Electricity - Chapter 4", "Physic", "Level 5"));
+
+        query.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ProgressBar progressBar = getView().findViewById(R.id.progressBar);
+                progressBar.setVisibility(View.GONE);
+                TextView tvSubtitleFragment = getView().findViewById(R.id.tvSubtitleFragment);
+                tvSubtitleFragment.setText("Jumlah pelajaran : " + dataSnapshot.getChildrenCount());
+
+                arrayList.clear();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Lesson newLesson = postSnapshot.getValue(Lesson.class);
+                    arrayList.add(new ThreeItems(newLesson.getId(), newLesson.getName(), newLesson.getSubject(), "Level " + newLesson.getLevel()));
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public interface ClickListener{

@@ -75,14 +75,14 @@ public class StudentProfileActivity extends AppCompatActivity {
 
     void addData(){
         arrayList = new ArrayList<>();
-        arrayList.add(new ThreeItems("Mirror - Chapter 2", "20", "out of " + 100));
-        arrayList.add(new ThreeItems("Electricity - Chapter 1", "44", "out of " + 100));
-        arrayList.add(new ThreeItems("Vibration - Chapter 5", "56", "out of " + 100));
-        arrayList.add(new ThreeItems("Electricity - Chapter 2", "55", "out of " + 100));
-        arrayList.add(new ThreeItems("Mirror - Chapter 1", "48", "out of " + 100));
-        arrayList.add(new ThreeItems("Vibration - Chapter 8", "80", "out of " + 100));
-        arrayList.add(new ThreeItems("Electricity - Chapter 3", "90", "out of " + 100));
-        arrayList.add(new ThreeItems("Electricity - Chapter 4", "100", "out of " + 100));
+        arrayList.add(new ThreeItems("", "Mirror - Chapter 2", "20", "out of " + 100));
+        arrayList.add(new ThreeItems("", "Electricity - Chapter 1", "44", "out of " + 100));
+        arrayList.add(new ThreeItems("", "Vibration - Chapter 5", "56", "out of " + 100));
+        arrayList.add(new ThreeItems("", "Electricity - Chapter 2", "55", "out of " + 100));
+        arrayList.add(new ThreeItems("", "Mirror - Chapter 1", "48", "out of " + 100));
+        arrayList.add(new ThreeItems("", "Vibration - Chapter 8", "80", "out of " + 100));
+        arrayList.add(new ThreeItems("", "Electricity - Chapter 3", "90", "out of " + 100));
+        arrayList.add(new ThreeItems("", "Electricity - Chapter 4", "100", "out of " + 100));
     }
 
     public interface ClickListener{

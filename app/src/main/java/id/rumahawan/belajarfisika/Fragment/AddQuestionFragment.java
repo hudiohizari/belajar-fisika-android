@@ -71,7 +71,7 @@ public class AddQuestionFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_add_question, container, false);
 
         session = new Session(getContext());
-        databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://belajar-fisika.firebaseio.com/Soal");
+        databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://belajar-fisika.firebaseio.com/Question");
         storageReference = FirebaseStorage.getInstance().getReference();
         progressDialog = new ProgressDialog(getContext());
 

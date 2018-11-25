@@ -1,6 +1,7 @@
 package id.rumahawan.belajarfisika.Object;
 
 public class ThreeItems {
+    private String id;
     private String title;
     private String subtile;
     private String subsubtitle;
@@ -8,10 +9,19 @@ public class ThreeItems {
     public ThreeItems() {
     }
 
-    public ThreeItems(String title, String subtile, String subsubtitle) {
+    public ThreeItems(String id, String title, String subtile, String subsubtitle) {
+        this.id = id;
         this.title = title;
         this.subtile = subtile;
         this.subsubtitle = subsubtitle;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String key) {
+        this.id = key;
     }
 
     public String getTitle() {
