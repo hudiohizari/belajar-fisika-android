@@ -60,10 +60,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setTitle("Student");
-        loadFragment(new StudentListFragment());
+
+        session = new Session(this);
+
         BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigation);
         bottomNavigation.setOnNavigationItemSelectedListener(this);
+
+        if (session.getSessionString("currentLevel").equals("teacher")) {
+            getSupportActionBar().setTitle("Student");
+            loadFragment(new StudentListFragment());
+        }
+        else{
+            getSupportActionBar().setTitle("Lesson");
+            loadFragment(new LessonListFragment());
+            bottomNavigation.setVisibility(View.GONE);
+        }
+
+        //Navigation drawer
         mDrawerlayout = findViewById(R.id.drawerContainer);
         mToggle = new ActionBarDrawerToggle(this, mDrawerlayout, R.string.open, R.string.close);
         mDrawerlayout.addDrawerListener(mToggle);
@@ -71,15 +84,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         NavigationView navigationView = findViewById(R.id.navigationView);
         navigationView.inflateHeaderView(R.layout.drawer_header);
-
-        session = new Session(this);
-
         View headerLayout = navigationView.getHeaderView(0);
         TextView tvHeaderName = headerLayout.findViewById(R.id.tvHeaderName);
-        tvHeaderName.setText("User Name");
+        tvHeaderName.setText(session.getSessionString("currentName"));
         TextView tvHeaderEmail = headerLayout.findViewById(R.id.tvHeaderEmail);
-        tvHeaderEmail.setText("user@gmail.com");
-
+        tvHeaderEmail.setText(session.getSessionString("currentEmail"));
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -94,5 +103,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return false;
             }
         });
+        //End navigation drawer
     }
 }

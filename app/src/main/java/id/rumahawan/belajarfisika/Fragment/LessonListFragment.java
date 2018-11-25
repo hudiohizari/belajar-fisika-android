@@ -27,9 +27,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import id.rumahawan.belajarfisika.AddLessonActivity;
+import id.rumahawan.belajarfisika.Data.Session;
 import id.rumahawan.belajarfisika.LessonDetailActivity;
 import id.rumahawan.belajarfisika.Object.Lesson;
 import id.rumahawan.belajarfisika.Object.ThreeItems;
@@ -39,6 +42,7 @@ import id.rumahawan.belajarfisika.RecyclerViewAdapter.ThreeItemsListStyle1Adapte
 public class LessonListFragment extends Fragment {
     private ProgressBar progressBar;
 
+    private Session session;
     private Query query;
     private ArrayList<ThreeItems> arrayList;
     private ThreeItemsListStyle1Adapter adapter;
@@ -84,7 +88,9 @@ public class LessonListFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main_activity_menu, menu);
+        if (session.getSessionString("currentLevel").equals("teacher")){
+            inflater.inflate(R.menu.main_activity_menu, menu);
+        }
     }
 
     @Override
@@ -100,6 +106,7 @@ public class LessonListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_three_items_list, container, false);
         final Context context = getActivity();
 
+        session = new Session(getContext());
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://belajar-fisika.firebaseio.com/Lesson");
         query = databaseReference.orderByKey();
         query.keepSynced(true);
@@ -107,6 +114,8 @@ public class LessonListFragment extends Fragment {
         progressBar = rootView.findViewById(R.id.progressBar);
         TextView tvTitleFragment = rootView.findViewById(R.id.tvTitleFragment);
         tvTitleFragment.setText("Lesson List");
+        TextView tvListName = rootView.findViewById(R.id.tvListName);
+        tvListName.setText("Daftar Pelajaran");
 
         addData();
         RecyclerView recyclerView = rootView.findViewById(R.id.rcContainer);
