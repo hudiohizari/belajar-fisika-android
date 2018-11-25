@@ -26,8 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import id.rumahawan.belajarfisika.Data.Session;
-import id.rumahawan.belajarfisika.Object.Lesson;
 import id.rumahawan.belajarfisika.Object.ThreeItems;
 import id.rumahawan.belajarfisika.Object.User;
 import id.rumahawan.belajarfisika.R;
@@ -37,7 +35,6 @@ import id.rumahawan.belajarfisika.StudentProfileActivity;
 public class StudentListFragment extends Fragment {
     private ProgressBar progressBar;
 
-    private Session session;
     private Query query;
     private ArrayList<ThreeItems> arrayList;
     private ThreeItemsListStyle1Adapter adapter;
@@ -80,7 +77,6 @@ public class StudentListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_three_items_list, container, false);
         final Context context = getActivity();
 
-        session = new Session(getContext());
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://belajar-fisika.firebaseio.com/User");
         query = databaseReference.orderByChild("level").equalTo("student");
         query.keepSynced(true);

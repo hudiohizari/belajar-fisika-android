@@ -1,16 +1,22 @@
 package id.rumahawan.belajarfisika;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +29,6 @@ import id.rumahawan.belajarfisika.Data.Session;
 import id.rumahawan.belajarfisika.Fragment.ViewQuestionFragment;
 import id.rumahawan.belajarfisika.Object.Answer;
 import id.rumahawan.belajarfisika.Object.Lesson;
-import id.rumahawan.belajarfisika.Object.Question;
 
 public class LessonDetailActivity extends AppCompatActivity {
     private View vStatus;
@@ -31,6 +36,7 @@ public class LessonDetailActivity extends AppCompatActivity {
     private ImageView ivLesson;
     private ProgressBar progressBar;
 
+    private ProgressDialog progressDialog;
     private Session session;
 
     private String lessonId, youtubeUrl;
@@ -46,6 +52,45 @@ public class LessonDetailActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (session.getSessionString("currentLevel").equals("teacher")){
+            getMenuInflater().inflate(R.menu.edit_lesson_menu, menu);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.delete) {
+            progressDialog.setMessage("Deleting");
+            progressDialog.show();
+            final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://belajar-fisika.firebaseio.com/Lesson");
+            Query query = databaseReference.orderByChild("id").equalTo(lessonId);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        final DatabaseReference deleteLesson = databaseReference.child(postSnapshot.getKey());
+                        deleteLesson.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                progressDialog.dismiss();
+                                finish();
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson_detail);
@@ -57,6 +102,8 @@ public class LessonDetailActivity extends AppCompatActivity {
         Query queryLesson = databaseReferenceLesson.orderByChild("id").equalTo(lessonId);
         DatabaseReference databaseReferenceAnswer = FirebaseDatabase.getInstance().getReferenceFromUrl("https://belajar-fisika.firebaseio.com/Answer");
         Query queryAnswer = databaseReferenceAnswer.orderByChild("owner").equalTo(session.getSessionString("currentEmail"));
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
 
         progressBar = findViewById(R.id.progressBar);
         tvNama = findViewById(R.id.tvNama);

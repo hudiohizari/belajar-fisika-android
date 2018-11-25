@@ -35,13 +35,11 @@
     <string name="wrong_answer_2">Wrong answer 2</string>
     <string name="wrong_answer_3">Wrong answer 3</string>
     <string name="dot">.</string>
-    <string name="student_name">Student Name</string>
-    <string name="s1_teknik_perhotelan">S1 Teknik Perhotelan</string>
-    <string name="_6706160053">6706160053</string>
     <string name="submit">Submit</string>
     <string name="submit_answer">Submit answer</string>
     <string name="prev">Prev</string>
     <string name="next">Next</string>
     <string name="you_ve_already_complete_this_lesson">You\'ve already complete this lesson</string>
     <string name="out_of_100">out of 100</string>
+    <string name="student_never_finish_any_lesson_quiz">Student never finish any lesson quiz</string>
 </resources>

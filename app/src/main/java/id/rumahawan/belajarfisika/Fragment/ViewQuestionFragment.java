@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -29,7 +28,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -41,7 +39,10 @@ public class ViewQuestionFragment extends Fragment {
     private ProgressBar progressBar;
     private TextView tvUrutSoal;
     private ImageView ivGambarSoal;
-    private Button btnOpsiA, btnOpsiB, btnOpsiC, btnOpsiD, btnDone;
+    private Button btnOpsiA;
+    private Button btnOpsiB;
+    private Button btnOpsiC;
+    private Button btnOpsiD;
 
     private ProgressDialog progressDialog;
     private Session session;
@@ -70,7 +71,11 @@ public class ViewQuestionFragment extends Fragment {
         btnOpsiB = rootView.findViewById(R.id.btnOpsiB);
         btnOpsiC = rootView.findViewById(R.id.btnOpsiC);
         btnOpsiD = rootView.findViewById(R.id.btnOpsiD);
-        btnDone = rootView.findViewById(R.id.btnDone);
+        Button btnDone = rootView.findViewById(R.id.btnDone);
+
+        if(session.getSessionString("currentLevel").equals("teacher")){
+            btnDone.setVisibility(View.GONE);
+        }
 
         btnOpsiA.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,7 +1,6 @@
 package id.rumahawan.belajarfisika;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,16 +8,34 @@ import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import id.rumahawan.belajarfisika.Object.Answer;
+import id.rumahawan.belajarfisika.Object.Lesson;
 import id.rumahawan.belajarfisika.Object.ThreeItems;
+import id.rumahawan.belajarfisika.Object.User;
 import id.rumahawan.belajarfisika.RecyclerViewAdapter.ThreeItemsListStyle2Adapter;
 
 public class StudentProfileActivity extends AppCompatActivity {
+    private DatabaseReference databaseReferenceAnswer;
+    private DatabaseReference databaseReferenceLesson;
+    private ThreeItemsListStyle2Adapter adapter;
     private ArrayList<ThreeItems> arrayList;
+
+    private ProgressBar progressBar;
+    private TextView tvNodata, tvNama, tvKelas, tvNomorInduk;
+
+    private String userEmail;
 
     class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
 
@@ -56,10 +73,40 @@ public class StudentProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_profile);
         getSupportActionBar().setTitle("Student Profile");
+        userEmail = getIntent().getExtras().getString("id");
+
+        DatabaseReference databaseReferenceUser = FirebaseDatabase.getInstance().getReferenceFromUrl("https://belajar-fisika.firebaseio.com/User");
+        databaseReferenceAnswer = FirebaseDatabase.getInstance().getReferenceFromUrl("https://belajar-fisika.firebaseio.com/Answer");
+        databaseReferenceLesson = FirebaseDatabase.getInstance().getReferenceFromUrl("https://belajar-fisika.firebaseio.com/Lesson");
+
+        progressBar = findViewById(R.id.progressBar);
+        tvNodata = findViewById(R.id.tvNoData);
+        tvNama = findViewById(R.id.tvNama);
+        tvKelas = findViewById(R.id.tvKelas);
+        tvNomorInduk = findViewById(R.id.tvNomorInduk);
+
+        Query queryUser = databaseReferenceUser.orderByChild("email").equalTo(userEmail);
+        queryUser.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    User user = postSnapshot.getValue(User.class);
+                    tvNama.setText(user.getName());
+                    tvKelas.setText(user.getClasc());
+                    tvNomorInduk.setText(user.getRegistrationNumber());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         addData();
         RecyclerView recyclerView = findViewById(R.id.rcContainer);
-        ThreeItemsListStyle2Adapter adapter = new ThreeItemsListStyle2Adapter(arrayList);
+        adapter = new ThreeItemsListStyle2Adapter(arrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -67,22 +114,54 @@ public class StudentProfileActivity extends AppCompatActivity {
                 new StudentProfileActivity.ClickListener() {
                     @Override
                     public void onClick(View view, final int position) {
-                        TextView clickedTitle = view.findViewById(R.id.tvTitle);
-                        Toast.makeText(StudentProfileActivity.this, "Clicked " + clickedTitle.getText(), Toast.LENGTH_SHORT).show();
+
                     }
                 }));
     }
 
-    void addData(){
+    private void addData(){
         arrayList = new ArrayList<>();
-        arrayList.add(new ThreeItems("", "Mirror - Chapter 2", "20", "out of " + 100));
-        arrayList.add(new ThreeItems("", "Electricity - Chapter 1", "44", "out of " + 100));
-        arrayList.add(new ThreeItems("", "Vibration - Chapter 5", "56", "out of " + 100));
-        arrayList.add(new ThreeItems("", "Electricity - Chapter 2", "55", "out of " + 100));
-        arrayList.add(new ThreeItems("", "Mirror - Chapter 1", "48", "out of " + 100));
-        arrayList.add(new ThreeItems("", "Vibration - Chapter 8", "80", "out of " + 100));
-        arrayList.add(new ThreeItems("", "Electricity - Chapter 3", "90", "out of " + 100));
-        arrayList.add(new ThreeItems("", "Electricity - Chapter 4", "100", "out of " + 100));
+        Query queryAnswer = databaseReferenceAnswer.orderByChild("owner").equalTo(userEmail);
+        queryAnswer.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getChildrenCount() == 0){
+                    progressBar.setVisibility(View.GONE);
+                    tvNodata.setVisibility(View.VISIBLE);
+                }
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Answer newAnswer = postSnapshot.getValue(Answer.class);
+                    int benar = 0;
+                    for (int i = 0;i < newAnswer.getSelectedAnswer().size();i++){
+                        if (newAnswer.getSelectedAnswer().get(i).equals(newAnswer.getCorrectAnswer().get(i))){
+                            benar++;
+                        }
+                    }
+                    final int skor = Math.round(benar / newAnswer.getCorrectAnswer().size() * 100);
+
+                    Query queryLesson = databaseReferenceLesson.orderByChild("id").equalTo(newAnswer.getLessonId());
+                    queryLesson.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            progressBar.setVisibility(View.GONE);
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                Lesson newLesson = postSnapshot.getValue(Lesson.class);
+                                arrayList.add(new ThreeItems("", newLesson.getName(), "" + skor, "out of " + 100));
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public interface ClickListener{

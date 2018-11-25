@@ -1,6 +1,5 @@
 package id.rumahawan.belajarfisika;
 
-import android.content.Intent;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -57,10 +56,9 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                SignUpActivity.this.finish();
+                Snackbar.make(findViewById(android.R.id.content), "Sign up is not ready yet", Snackbar.LENGTH_LONG)
+                        .setActionTextColor(getResources().getColor(R.color.colorPrimary))
+                        .show();
             }
         });
     }
