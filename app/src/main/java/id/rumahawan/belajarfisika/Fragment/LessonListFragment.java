@@ -138,7 +138,7 @@ public class LessonListFragment extends Fragment {
         return rootView;
     }
 
-    void addData(){
+    private void addData(){
         arrayList = new ArrayList<>();
 
         query.addValueEventListener(new ValueEventListener() {

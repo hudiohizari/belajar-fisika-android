@@ -4,6 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 public class Session {
     private static final String SHARED_PREFERENCES = "shared_preferences";
 
@@ -38,6 +44,20 @@ public class Session {
     }
     public int getSessionInt(String key){
         return sharedPreferences.getInt(key, 0);
+    }
+
+    public void setSessionArraylistString(String key, ArrayList<String> arrayList){
+        Gson gson = new Gson();
+        String json = gson.toJson(arrayList);
+        editor.putString(key, json);
+        editor.apply();
+    }
+
+    public ArrayList<String> getSessionArraylistString(String key){
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(key, null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        return gson.fromJson(json, type);
     }
 
     public void removeSession(String key){
