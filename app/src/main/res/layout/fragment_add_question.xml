@@ -20,10 +20,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
+    <ImageView
         android:id="@+id/ivGambarSoal"
         android:layout_width="0dp"
-        android:layout_height="160dp"
+        android:layout_height="200dp"
         android:layout_marginEnd="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
@@ -32,7 +32,8 @@
         android:background="@drawable/rectangle_radius_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUrutSoal" />
+        app:layout_constraintTop_toBottomOf="@+id/tvUrutSoal"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/ivUploadPertanyaan"
@@ -85,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ivUploadPertanyaan" />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilOpsiA"
+        android:id="@+id/correctAnswer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -100,7 +101,7 @@
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/option_a"
+            android:hint="@string/correct_answer"
             android:inputType="number|numberDecimal"
             android:maxLines="1"
             android:singleLine="true" />
@@ -108,7 +109,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilOpsiB"
+        android:id="@+id/wrongAnwer0"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -118,12 +119,12 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilOpsiA">
+        app:layout_constraintTop_toBottomOf="@+id/correctAnswer">
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/option_b"
+            android:hint="@string/wrong_answer_1"
             android:inputType="number|numberDecimal"
             android:maxLines="1"
             android:singleLine="true" />
@@ -131,7 +132,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilOpsiC"
+        android:id="@+id/wrongAnwer1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
@@ -146,7 +147,7 @@
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/option_c"
+            android:hint="@string/wrong_answer_2"
             android:inputType="number|numberDecimal"
             android:maxLines="1"
             android:singleLine="true" />
@@ -154,7 +155,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilOpsiD"
+        android:id="@+id/wrongAnwer2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
@@ -164,12 +165,12 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/tilOpsiC">
+        app:layout_constraintTop_toBottomOf="@+id/wrongAnwer1">
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/option_d"
+            android:hint="@string/wrong_answer_3"
             android:inputType="number|numberDecimal"
             android:maxLines="1"
             android:singleLine="true" />
@@ -191,7 +192,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilOpsiB" />
+        app:layout_constraintTop_toBottomOf="@+id/wrongAnwer0" />
 
     <View
         android:id="@+id/view"

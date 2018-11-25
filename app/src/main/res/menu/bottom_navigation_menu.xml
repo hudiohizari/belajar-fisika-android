@@ -3,11 +3,11 @@
     <item
         android:id="@+id/student"
         android:title="@string/student"
-        android:icon="@drawable/ic_person_white_24dp"/>
+        android:icon="@drawable/ic_school_white_24dp"/>
 
     <item
         android:id="@+id/lesson"
         android:title="@string/lesson"
-        android:icon="@drawable/ic_library_books_white_24dp"/>
+        android:icon="@drawable/ic_local_library_white_24dp"/>
 
 </menu>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "200206791444",
+    "firebase_url": "https://belajar-fisika.firebaseio.com",
+    "project_id": "belajar-fisika",
+    "storage_bucket": "belajar-fisika.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200206791444:android:2a79b01855d5dba1",
+        "android_client_info": {
+          "package_name": "id.rumahawan.belajarfisika"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "200206791444-0l3nr5t6i362tdpgkhuvb324j54oliq2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApr5HJlvmTcqBpVZB-WnXGwniAOWN7wAc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

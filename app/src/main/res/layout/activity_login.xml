@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/TextView" />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilFullName"
+        android:id="@+id/tilLessonName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -79,7 +79,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilFullName">
+        app:layout_constraintTop_toBottomOf="@+id/tilLessonName">
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
