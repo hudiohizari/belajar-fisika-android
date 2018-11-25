@@ -68,7 +68,7 @@ public class StudentListFragment extends Fragment {
         TextView tvTitleFragment = rootView.findViewById(R.id.tvTitleFragment);
         tvTitleFragment.setText("Student List");
         TextView tvSubtitleFragment = rootView.findViewById(R.id.tvSubtitleFragment);
-        tvSubtitleFragment.setText("Jumlah siswa terdaftar : 180");
+        tvSubtitleFragment.setText("Registered student : 180");
 
         addData();
         RecyclerView recyclerView = rootView.findViewById(R.id.rcContainer);

@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,7 +30,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import id.rumahawan.belajarfisika.AddLessonActivity;
-import id.rumahawan.belajarfisika.Data.Session;
 import id.rumahawan.belajarfisika.LessonDetailActivity;
 import id.rumahawan.belajarfisika.Object.Lesson;
 import id.rumahawan.belajarfisika.Object.ThreeItems;
@@ -39,9 +37,9 @@ import id.rumahawan.belajarfisika.R;
 import id.rumahawan.belajarfisika.RecyclerViewAdapter.ThreeItemsListStyle1Adapter;
 
 public class LessonListFragment extends Fragment {
+    private ProgressBar progressBar;
 
     private Query query;
-    private Session session;
     private ArrayList<ThreeItems> arrayList;
     private ThreeItemsListStyle1Adapter adapter;
 
@@ -105,8 +103,8 @@ public class LessonListFragment extends Fragment {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://belajar-fisika.firebaseio.com/Lesson");
         query = databaseReference.orderByKey();
         query.keepSynced(true);
-        session = new Session(getContext());
 
+        progressBar = rootView.findViewById(R.id.progressBar);
         TextView tvTitleFragment = rootView.findViewById(R.id.tvTitleFragment);
         tvTitleFragment.setText("Lesson List");
 
@@ -123,7 +121,7 @@ public class LessonListFragment extends Fragment {
                         TextView tvKey = view.findViewById(R.id.tvId);
                         startActivity(
                                 new Intent(getContext(), LessonDetailActivity.class)
-                                .putExtra("key", tvKey.getText().toString())
+                                .putExtra("id", tvKey.getText().toString())
                         );
                     }
                 }));
@@ -138,10 +136,9 @@ public class LessonListFragment extends Fragment {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ProgressBar progressBar = getView().findViewById(R.id.progressBar);
                 progressBar.setVisibility(View.GONE);
                 TextView tvSubtitleFragment = getView().findViewById(R.id.tvSubtitleFragment);
-                tvSubtitleFragment.setText("Jumlah pelajaran : " + dataSnapshot.getChildrenCount());
+                tvSubtitleFragment.setText("Registered lesson : " + dataSnapshot.getChildrenCount());
 
                 arrayList.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {

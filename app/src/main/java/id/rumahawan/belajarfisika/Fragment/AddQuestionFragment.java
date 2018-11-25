@@ -74,6 +74,7 @@ public class AddQuestionFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://belajar-fisika.firebaseio.com/Question");
         storageReference = FirebaseStorage.getInstance().getReference();
         progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
 
         tvUrutSoal = rootView.findViewById(R.id.tvUrutSoal);
         tvUrutSoal.setText(getResources().getString(R.string.question) + " " + session.getSessionInt("questionNumber"));
@@ -94,7 +95,7 @@ public class AddQuestionFragment extends Fragment {
         });
 
         btnUploadSoal = rootView.findViewById(R.id.btnDone);
-        btnUploadSoal.setText(getResources().getString(R.string.upload_question) + " " + 1);
+        btnUploadSoal.setText(getResources().getString(R.string.upload_question) + " " + session.getSessionInt("questionNumber"));
         btnUploadSoal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,9 +134,9 @@ public class AddQuestionFragment extends Fragment {
                 newSoal.child("id").setValue(""  + random.nextInt((999999 - 1) + 1 ) + 1);
                 newSoal.child("questionUrl").setValue(taskSnapshot.getDownloadUrl().toString());
                 newSoal.child("correctAnswer").setValue(correctAnswer.getEditText().getText().toString());
-                newSoal.child("wrongAnwer0").setValue(wrongAnwer0.getEditText().getText().toString());
-                newSoal.child("wrongAnwer1").setValue(wrongAnwer1.getEditText().getText().toString());
-                newSoal.child("wrongAnwer2").setValue(wrongAnwer2.getEditText().getText().toString());
+                newSoal.child("wrongAnswer0").setValue(wrongAnwer0.getEditText().getText().toString());
+                newSoal.child("wrongAnswer1").setValue(wrongAnwer1.getEditText().getText().toString());
+                newSoal.child("wrongAnswer2").setValue(wrongAnwer2.getEditText().getText().toString());
                 newSoal.child("lessonId").setValue(session.getSessionString("lessonId"))
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override

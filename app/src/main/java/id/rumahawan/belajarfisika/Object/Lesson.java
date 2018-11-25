@@ -5,16 +5,16 @@ public class Lesson {
     private String name;
     private String subject;
     private String level;
-    private String youtubeLink;
+    private String youtubeUrl;
 
     public Lesson() {}
 
-    public Lesson(String id, String name, String subject, String level, String youtubeLink) {
+    public Lesson(String id, String name, String subject, String level, String youtubeUrl) {
         this.id = id;
         this.name = name;
         this.subject = subject;
         this.level = level;
-        this.youtubeLink = youtubeLink;
+        this.youtubeUrl = youtubeUrl;
     }
 
     public String getId() {
@@ -49,11 +49,11 @@ public class Lesson {
         this.level = level;
     }
 
-    public String getYoutubeLink() {
-        return youtubeLink;
+    public String getYoutubeUrl() {
+        return youtubeUrl;
     }
 
-    public void setYoutubeLink(String youtubeLink) {
-        this.youtubeLink = youtubeLink;
+    public void setYoutubeUrl(String youtubeUrl) {
+        this.youtubeUrl = youtubeUrl;
     }
 }

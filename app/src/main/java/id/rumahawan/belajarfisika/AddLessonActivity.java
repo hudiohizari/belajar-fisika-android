@@ -79,6 +79,7 @@ public class AddLessonActivity extends AppCompatActivity {
         session = new Session(this);
         databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://belajar-fisika.firebaseio.com/Lesson");
         progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
 
         tilLessonName = findViewById(R.id.tilLessonName);
         tilSubject = findViewById(R.id.tilSubject);
@@ -106,7 +107,7 @@ public class AddLessonActivity extends AppCompatActivity {
         newLesson.child("name").setValue(tilLessonName.getEditText().getText().toString());
         newLesson.child("subject").setValue(tilSubject.getEditText().getText().toString());
         newLesson.child("level").setValue(tilLevel.getEditText().getText().toString());
-        newLesson.child("youtubeLink").setValue(tilLinkVideo.getEditText().getText().toString())
+        newLesson.child("youtubeUrl").setValue(tilLinkVideo.getEditText().getText().toString())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
