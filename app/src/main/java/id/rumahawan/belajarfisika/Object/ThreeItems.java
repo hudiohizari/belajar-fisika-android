@@ -2,6 +2,7 @@ package id.rumahawan.belajarfisika.Object;
 
 public class ThreeItems {
     private String id;
+    private int img;
     private String title;
     private String subtile;
     private String subsubtitle;
@@ -16,12 +17,28 @@ public class ThreeItems {
         this.subsubtitle = subsubtitle;
     }
 
+    public ThreeItems(String id, int img, String title, String subtile, String subsubtitle) {
+        this.id = id;
+        this.img = img;
+        this.title = title;
+        this.subtile = subtile;
+        this.subsubtitle = subsubtitle;
+    }
+
     public String getId() {
         return id;
     }
 
-    public void setId(String key) {
-        this.id = key;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getImg() {
+        return img;
+    }
+
+    public void setImg(int img) {
+        this.img = img;
     }
 
     public String getTitle() {

@@ -152,7 +152,7 @@ public class LessonListFragment extends Fragment {
                 arrayList.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Lesson newLesson = postSnapshot.getValue(Lesson.class);
-                    arrayList.add(new ThreeItems(newLesson.getId(), newLesson.getName(), newLesson.getSubject(), "Level " + newLesson.getLevel()));
+                    arrayList.add(new ThreeItems(newLesson.getId(), R.drawable.ic_local_library_grey_48dp, newLesson.getName(), newLesson.getSubject(), "Level " + newLesson.getLevel()));
                 }
                 adapter.notifyDataSetChanged();
             }

@@ -124,7 +124,7 @@ public class StudentListFragment extends Fragment {
                 arrayList.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     User newUser = postSnapshot.getValue(User.class);
-                    arrayList.add(new ThreeItems(newUser.getEmail(), newUser.getName(), newUser.getClasc(), newUser.getRegistrationNumber()));
+                    arrayList.add(new ThreeItems(newUser.getEmail(), R.drawable.ic_school_grey_48dp, newUser.getName(), newUser.getClasc(), newUser.getRegistrationNumber()));
                 }
                 adapter.notifyDataSetChanged();
             }

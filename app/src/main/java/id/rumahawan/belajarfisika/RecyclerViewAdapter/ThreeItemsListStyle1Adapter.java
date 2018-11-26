@@ -29,7 +29,7 @@ public class ThreeItemsListStyle1Adapter extends RecyclerView.Adapter<ThreeItems
 
     @Override
     public void onBindViewHolder(@NonNull ThreeItemsViewHolder holder, int position) {
-        holder.ivMain.setImageResource(R.drawable.ic_launcher_foreground);
+        holder.ivMain.setImageResource(dataList.get(position).getImg());
         holder.tvId.setText(dataList.get(position).getId());
         holder.tvTitle.setText(dataList.get(position).getTitle());
         holder.tvSubtitle.setText(dataList.get(position).getSubtile());
