@@ -30,14 +30,6 @@ public class Session {
         return sharedPreferences.getString(key, null);
     }
 
-    public void setSessionBoolean(String key, boolean value){
-        editor.putBoolean(key, value);
-        editor.commit();
-    }
-    public Boolean getSessionBoolean(String key){
-        return sharedPreferences.getBoolean(key, false);
-    }
-
     public void setSessionInt(String key, int value){
         editor.putInt(key, value);
         editor.commit();

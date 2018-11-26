@@ -12,7 +12,6 @@ import android.widget.TextView;
 import id.rumahawan.belajarfisika.Data.Session;
 
 public class OnBoardingActivity extends AppCompatActivity {
-    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +22,7 @@ public class OnBoardingActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorSligthTranslucent));
         }
 
-        session = new Session(this);
+        Session session = new Session(this);
 
         if (session.isExist("currentEmail")){
             Intent intent = new Intent(OnBoardingActivity.this, MainActivity.class);

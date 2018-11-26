@@ -33,10 +33,8 @@ import id.rumahawan.belajarfisika.R;
 import static android.app.Activity.RESULT_OK;
 
 public class AddQuestionFragment extends Fragment {
-    private TextView tvUrutSoal;
     private ImageView ivUploadGambarSoal;
     private TextInputLayout correctAnswer, wrongAnwer0, wrongAnwer1, wrongAnwer2;
-    private Button btnUploadSoal;
 
     private Session session;
     private DatabaseReference databaseReference;
@@ -76,7 +74,7 @@ public class AddQuestionFragment extends Fragment {
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);
 
-        tvUrutSoal = rootView.findViewById(R.id.tvUrutSoal);
+        TextView tvUrutSoal = rootView.findViewById(R.id.tvUrutSoal);
         tvUrutSoal.setText(getResources().getString(R.string.question) + " " + session.getSessionInt("questionNumber"));
 
         correctAnswer = rootView.findViewById(R.id.correctAnswer);
@@ -94,7 +92,7 @@ public class AddQuestionFragment extends Fragment {
             }
         });
 
-        btnUploadSoal = rootView.findViewById(R.id.btnDone);
+        Button btnUploadSoal = rootView.findViewById(R.id.btnDone);
         btnUploadSoal.setText(getResources().getString(R.string.upload_question) + " " + session.getSessionInt("questionNumber"));
         btnUploadSoal.setOnClickListener(new View.OnClickListener() {
             @Override
