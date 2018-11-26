@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -122,7 +123,10 @@ public class ViewQuestionFragment extends Fragment {
                     }
                     System.out.println("Benar : "+benar);
                     System.out.println("Size : "+arrayJawabanTerpilih.size());
-                    final int skor = Math.round(benar / arrayJawabanTerpilih.size() * 100);
+                    double pointPerSoal = 100 / arrayJawabanTerpilih.size();
+                    int skor = (int) Math.round(pointPerSoal * benar);
+                    if (benar == arrayJawabanTerpilih.size()){skor = 100;}
+                    final int finalSkor = skor;
                     progressDialog.setMessage("Submitting answer");
 
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://belajar-fisika.firebaseio.com/Answer");
@@ -138,17 +142,17 @@ public class ViewQuestionFragment extends Fragment {
 
                                     AlertDialog.Builder builder;
                                     builder = new AlertDialog.Builder(getContext());
-                                    builder.setTitle("Your skor was : " + skor)
+                                    builder.setTitle("Your skor was : " + finalSkor)
                                             .setMessage("You can find all your score on your profile")
                                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    removeFragment();
+                                                    restartActivity();
                                                 }
                                             })
                                             .setOnCancelListener(new DialogInterface.OnCancelListener() {
                                                 @Override
                                                 public void onCancel(DialogInterface dialog) {
-                                                    removeFragment();
+                                                    restartActivity();
                                                 }
                                             })
                                             .show();
@@ -240,8 +244,10 @@ public class ViewQuestionFragment extends Fragment {
         }
     }
 
-    private void removeFragment(){
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.remove(ViewQuestionFragment.this).commit();
+    private void restartActivity(){
+        Intent intent = getActivity().getIntent();
+        intent.putExtra("id", session.getSessionString("lessonId"));
+        getActivity().finish();
+        startActivity(intent);
     }
 }

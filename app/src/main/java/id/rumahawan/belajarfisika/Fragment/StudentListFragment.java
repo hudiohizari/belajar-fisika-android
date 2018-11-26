@@ -116,8 +116,10 @@ public class StudentListFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);
-                TextView tvSubtitleFragment = getView().findViewById(R.id.tvSubtitleFragment);
-                tvSubtitleFragment.setText("Registered student : " + dataSnapshot.getChildrenCount());
+                if (getView() != null) {
+                    TextView tvSubtitleFragment = getView().findViewById(R.id.tvSubtitleFragment);
+                    tvSubtitleFragment.setText("Registered student : " + dataSnapshot.getChildrenCount());
+                }
 
                 arrayList.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {

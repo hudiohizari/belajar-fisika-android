@@ -171,7 +171,9 @@ public class LessonDetailActivity extends AppCompatActivity {
                             benar++;
                         }
                     }
-                    final int skor = Math.round(benar / selectedAnswer.getCorrectAnswer().size() * 100);
+                    double pointPerSoal = 100 / selectedAnswer.getCorrectAnswer().size();
+                    int skor = (int) Math.round(pointPerSoal * benar);
+                    if (benar == selectedAnswer.getCorrectAnswer().size()){skor = 100;}
 
                     vStatus.setVisibility(View.VISIBLE);
                     tvStatusTitle.setVisibility(View.VISIBLE);

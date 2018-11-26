@@ -137,7 +137,10 @@ public class StudentProfileActivity extends AppCompatActivity {
                             benar++;
                         }
                     }
-                    final int skor = Math.round(benar / newAnswer.getCorrectAnswer().size() * 100);
+                    double pointPerSoal = 100 / newAnswer.getCorrectAnswer().size();
+                    int skor = (int) Math.round(pointPerSoal * benar);
+                    if (benar == newAnswer.getCorrectAnswer().size()){skor = 100;}
+                    final int finalSkor = skor;
 
                     Query queryLesson = databaseReferenceLesson.orderByChild("id").equalTo(newAnswer.getLessonId());
                     queryLesson.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -146,7 +149,7 @@ public class StudentProfileActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                             for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                                 Lesson newLesson = postSnapshot.getValue(Lesson.class);
-                                arrayList.add(new ThreeItems("", newLesson.getName(), "" + skor, "out of " + 100));
+                                arrayList.add(new ThreeItems("", newLesson.getName(), "" + finalSkor, "out of " + 100));
                                 adapter.notifyDataSetChanged();
                             }
                         }
