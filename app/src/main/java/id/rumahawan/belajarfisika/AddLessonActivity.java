@@ -85,23 +85,38 @@ public class AddLessonActivity extends AppCompatActivity {
                 !tilLinkVideo.getEditText().getText().toString().equals("");
     }
 
+    private boolean isUrlVideoCorrect(String link) {
+        String[] splitedMobile = link.split(".be/");
+        String[] splitedWeb = link.split(".com/watch\\?v=");
+        return splitedMobile.length >= 2 || splitedWeb.length >= 2;
+    }
+
     private void pushLesson(){
         progressDialog.setMessage("Uploading lesson");
         progressDialog.show();
 
-        DatabaseReference newLesson = databaseReference.push();
-        newLesson.child("id").setValue(session.getSessionString("lessonId"));
-        newLesson.child("name").setValue(tilLessonName.getEditText().getText().toString());
-        newLesson.child("subject").setValue(tilSubject.getEditText().getText().toString());
-        newLesson.child("level").setValue(tilLevel.getEditText().getText().toString());
-        newLesson.child("youtubeUrl").setValue(tilLinkVideo.getEditText().getText().toString())
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        progressDialog.dismiss();
-                        finish();
-                    }
-                })
-        ;
+        if (isUrlVideoCorrect(tilLinkVideo.getEditText().getText().toString())){
+            DatabaseReference newLesson = databaseReference.push();
+            newLesson.child("id").setValue(session.getSessionString("lessonId"));
+            newLesson.child("name").setValue(tilLessonName.getEditText().getText().toString());
+            newLesson.child("subject").setValue(tilSubject.getEditText().getText().toString());
+            newLesson.child("level").setValue(tilLevel.getEditText().getText().toString());
+            newLesson.child("youtubeUrl").setValue(tilLinkVideo.getEditText().getText().toString())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            progressDialog.dismiss();
+                            finish();
+                        }
+                    })
+            ;
+        }
+        else{
+            progressDialog.dismiss();
+            View parentLayout = findViewById(android.R.id.content);
+            Snackbar.make(parentLayout, "Youtube link is incorrect", Snackbar.LENGTH_LONG)
+                    .setActionTextColor(getResources().getColor(R.color.colorPrimary))
+                    .show();
+        }
     }
 }
